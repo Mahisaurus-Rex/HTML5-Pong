@@ -1,3 +1,6 @@
 canvas {
-	style="border:2px solid #000000;
+	border:2px solid black;
+}
+body{
+	margin: 0;
 }
