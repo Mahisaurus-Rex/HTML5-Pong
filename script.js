@@ -9,10 +9,28 @@ canvas.height=window.innerHeight;
 //context variable
 var c = canvas.getContext('2d');
 
-//jquery.hotkeys
-$(expression).bind(types.keys, handler);
-$(expression).unbind(types.keys, handler);
+window.addEventListener('keyup', function(event) { Key.onKeyup(event); }, false);
+window.addEventListener('keydown', function(event) { Key.onKeydown(event); }, false);
 
+var Key = {
+  _pressed: {},
+  UP: 38,
+  DOWN: 40,
+  
+  isDown: function(keyCode) {
+    return this._pressed[keyCode];
+  },
+  
+  onKeydown: function(event) {
+    this._pressed[event.keyCode] = true;
+  },
+  
+  onKeyup: function(event) {
+    delete this._pressed[event.keyCode];
+  }
+};
+
+/*
 // Handle keyboard controls
 var keysDown = {};
 
@@ -23,7 +41,7 @@ addEventListener("keydown", function (key) {
 addEventListener("keyup", function (key) {
   delete keysDown[key.keyCode];
 }, false);
-
+*/
 
 //initial variables
 var p1_x=30;
@@ -70,20 +88,8 @@ function animate(){
 	c.clearRect(0,0,innerWidth,innerHeight);
 
 	// Check for keys pressed where key represents the keycode captured
-	addEventListener("keydown", function (key) {
-	  keysDown[key.keyCode] = true;
-	}, false);
-	addEventListener("keyup", function (key) {
-	  delete keysDown[key.keyCode];
-	}, false);
-
-	//controls
-	if (87 in keysDown) { // Player is holding W key
-	  Player2.moveUp();
-	}
-	if (83 in keysDown) { // Player is holding down key
-	  Player2.moveDown();
-	}
+	if (Key.isDown(Key.UP)) Player2.moveUp();
+    if (Key.isDown(Key.DOWN)) Player2.moveDown();
 
 	//draw and update
 	Player1.draw();
