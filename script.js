@@ -82,18 +82,21 @@ Paddle.prototype.moveDown = function(){
 var Player1= new Paddle(p1_x,p1_y);
 var Player2= new Paddle(p2_x,p2_y);
 
+Player2.prototype.update = function() {
+  if (Key.isDown(Key.UP)) this.moveUp();
+  if (Key.isDown(Key.DOWN)) this.moveDown();
+};
+
+
 //animate
 function animate(){
 	//clear screen
 	c.clearRect(0,0,innerWidth,innerHeight);
 
-	// Check for keys pressed where key represents the keycode captured
-	if (Key.isDown(Key.UP)) Player2.moveUp();
-    if (Key.isDown(Key.DOWN)) Player2.moveDown();
-
 	//draw and update
 	Player1.draw();
 	Player2.draw();
+	Player2.update();
 	requestAnimationFrame(animate);
 }
 
