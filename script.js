@@ -9,6 +9,10 @@ canvas.height=window.innerHeight;
 //context variable
 var c = canvas.getContext('2d');
 
+//jquery.hotkeys
+$(expression).bind(types.keys, handler);
+$(expression).unbind(types.keys, handler);
+
 // Handle keyboard controls
 var keysDown = {};
 
